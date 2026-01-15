@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Beam Inputs</h2>
+        <label>Span Length (ft)</label>
+        <input type="number" id="span" value="5.0">
+        
+        <label>Uniform Load (kft)</label>
+        <input type="number" id="load" value="10.0">
+        
+        <button onclick="runDesign()">Calculate Beam</button>
+    </div>
+
+    <div class="main-content">
+        <div class="result-card">
+            <h2>Design Results</h2>
+            <div class="stat-row">
+                <span>Max Bending Moment</span>
+                <span class="val"><span id="m-out">0.00</span> kip-ft</span>
+            </div>
+            <div class="stat-row">
+                <span>Max Shear Force</span>
+                <span class="val"><span id="v-out">0.00</span> kip</span>
+            </div>
+        </div> 
+    </div>
+
+     <script>
+        function runDesign() {
+            const inputs = {
+                span: document.getElementById('span').value,
+                load: document.getElementById('load').value
+            };
+            // Call Python function exposed via js_api
+            pywebview.api.calculate_beam(inputs).then(response => {
+                document.getElementById('m-out').innerText = response.moment;
+                document.getElementById('v-out').innerText = response.shear;
+            });
+        }
+    </script>
+
+</body>
+</html>
