@@ -54,7 +54,7 @@ def main():
     window = webview.create_window("ZFA Calc Compiler by Owen Hodges", "index.html", js_api=api, width=800, height=600)
     api.set_window(window)
 
-    webview.start(debug=True)
+    webview.start(debug=False)
 
 if __name__ == "__main__":
     main()
