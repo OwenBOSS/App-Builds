@@ -38,6 +38,7 @@ input {
     padding: 8px;
     border-radius: 4px;
     outline: none;
+    appearance: none;
 }
 
 input:focus { border-color: var(--accent); }

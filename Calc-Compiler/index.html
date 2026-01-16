@@ -4,9 +4,78 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Document</title>
+    <title>ZFA Calc Pack Tool - By Owen Hodges</title>
 </head>
 <body>
-    
+    <div class="container">
+        <!-- File and Directory Selection -->
+        <div class="input-group">
+            <label>Excel File:</label>
+            <input type="text" id="excel-path" placeholder="Path to .xlsx" readonly>
+            <button onclick="pickFile('excel-path')">Browse File</button>
+        </div>
+
+        <div class="input-group">
+            <label>Calc Set PDFs:</label>
+            <input type="text" id="pdf-dir" placeholder="Directory path" readonly>
+            <button onclick="pickDirectory('pdf-dir')">Browse Folder</button>
+        </div>
+
+        <div class="input-group">
+            <label>SWAPs:</label>
+            <input type="text" id="swap-dir" placeholder="Directory path" readonly>
+            <button onclick="pickDirectory('swap-dir')">Browse Folder</button>
+        </div>
+
+        <!-- Action Toggles -->
+        <div class="toggle-group">
+            <label class="switch">
+                <input type="checkbox" id="toggle-print-excel">
+                <span class="slider"></span>
+            </label>
+            <span>Print Excel</span>
+        </div>
+
+        <div class="toggle-group">
+            <label class="switch">
+                <input type="checkbox" id="toggle-swap-reports">
+                <span class="slider"></span>
+            </label>
+            <span>Swap Reports</span>
+        </div>
+
+        <!-- Main Action Button -->
+        <button id="compile-btn" class="primary-btn" onclick="startCompile()">Compile</button>
+    </div>
+
+    <script>
+        // These functions call your Python backend via the pywebview API
+        function testFunction(){
+            console.log("Test");
+            pywebview.api.test();
+        }
+
+        async function pickFile(elementId) {
+            const path = await pywebview.api.select_file();
+            if (path) document.getElementById(elementId).value = path;
+        }
+
+        async function pickDirectory(elementId) {
+            const path = await pywebview.api.select_folder();
+            if (path) document.getElementById(elementId).value = path;
+        }
+
+        async function startCompile() {
+            const inputs = {
+                excel_path: document.getElementById("excel-path").value,
+                calc_pdf_folder: document.getElementById("pdf-dir").value,
+                swap_folder: document.getElementById("swap-dir").value,
+                print_excel_flag: document.getElementById("toggle-print-excel").checked,
+                swap_reports_flag: document.getElementById("toggle-swap-reports").checked
+            }
+            pywebview.api.compile(inputs)
+        }
+    </script>
 </body>
+
 </html>
