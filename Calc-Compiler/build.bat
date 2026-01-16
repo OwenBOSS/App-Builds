@@ -1,1 +1,1 @@
-uv run pyinstaller main.py --distpath "C:\Users\OwenH\OneDrive - ZFA Structural Engineers\PKM\3 - Resources\OHH Executables" --workpath "C:\Users\OwenH\SE-Workbook\build-files" -F -n CalcCompile.exe
+uv run pyinstaller main.py --distpath "C:\Users\OwenH\OneDrive - ZFA Structural Engineers\PKM\3 - Resources\OHH Executables" --workpath "C:\Users\OwenH\SE-Workbook\build-files" -F -n calccompile.exe --add-data "index.html:." --add-data "style.css:."
